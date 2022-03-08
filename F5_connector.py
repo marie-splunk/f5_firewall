@@ -37,7 +37,7 @@ from phantom.action_result import ActionResult
 #
 import simplejson as json
 import time
-import httplib
+import http.client
 #
 #  application imports
 #
@@ -106,7 +106,7 @@ class F5_Connector(BaseConnector):
 
         if F5.genericGET():
             # True is success
-            return self.set_status_save_progress(phantom.APP_SUCCESS, msg + "%s %s" % (F5.status_code, httplib.responses[F5.status_code]))
+            return self.set_status_save_progress(phantom.APP_SUCCESS, msg + "%s %s" % (F5.status_code, http.client.responses[F5.status_code]))
         else:
             # None or False, is a failure based on incorrect IP address, username, passords
             return self.set_status_save_progress(phantom.APP_ERROR, msg + "%s %s" % (F5.status_code, F5.response))
@@ -213,7 +213,7 @@ if __name__ == '__main__':
     # pudb.set_trace()
 
     if (len(sys.argv) < 2):
-        print "No test json specified as input"
+        print("No test json specified as input")
         exit(0)
 
     with open(sys.argv[1]) as f:                           # input a json file that contains data like the configuration and action parameters,
